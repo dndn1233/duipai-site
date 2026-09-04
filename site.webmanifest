@@ -1,0 +1,10 @@
+{
+  "name": "对拍 Groove",
+  "short_name": "对拍 Groove",
+  "description": "让校园音乐人更快找到彼此",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F8F6",
+  "theme_color": "#0FA89A",
+  "lang": "zh-CN"
+}
