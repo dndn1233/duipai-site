@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0FA89A" />
+  <title>对拍 Groove｜让校园音乐人更快找到彼此</title>
+  <meta name="description" content="对拍 Groove 是面向校园音乐人与音乐社团的微信小程序，把找乐手、找乐队、音乐主页、聊天、活动、乐队管理、排练与设备协同连接成一条完整体验。" />
+  <link rel="canonical" href="https://duipai.top/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="对拍 Groove" />
+  <meta property="og:title" content="对拍 Groove｜让校园音乐人更快找到彼此" />
+  <meta property="og:description" content="找乐手、找乐队、聊音乐、组乐队、参加活动，从认识到真正一起排练。" />
+  <meta property="og:url" content="https://duipai.top/" />
+  <meta property="og:image" content="https://duipai.top/assets/hero.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="对拍 Groove｜让校园音乐人更快找到彼此" />
+  <meta name="twitter:description" content="校园音乐人的组队、沟通与社团协同平台。" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="site.webmanifest" />
+  <style>
+    :root{
+      --paper:#F7F8F6;
+      --ink:#11161A;
+      --muted:#6F7777;
+      --line:#DDE3DF;
+      --teal:#0FA89A;
+      --audio:#20CDBD;
+      --white:#FFFFFF;
+      --soft:#ECF7F4;
+      --shadow:0 18px 60px rgba(17,22,26,.10);
+      --radius-xl:34px;
+      --radius-lg:24px;
+      --radius-md:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    button,a{ -webkit-tap-highlight-color:transparent }
+    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+    .nav{position:sticky;top:0;z-index:20;background:rgba(247,248,246,.86);backdrop-filter:blur(18px);border-bottom:1px solid rgba(17,22,26,.06)}
+    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:.02em}
+    .brand-mark{width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,var(--teal),var(--audio));position:relative;box-shadow:0 8px 22px rgba(15,168,154,.25)}
+    .brand-mark:before,.brand-mark:after{content:"";position:absolute;border-radius:999px;background:#fff}
+    .brand-mark:before{width:5px;height:20px;left:12px;top:9px;box-shadow:9px 0 0 rgba(255,255,255,.82)}
+    .brand-mark:after{width:19px;height:5px;left:9px;top:16px;transform:rotate(-18deg);opacity:.9}
+    .nav-links{display:flex;align-items:center;gap:26px;color:#394143;font-size:14px}
+    .nav-links a:hover{color:var(--teal)}
+    .nav-cta{padding:10px 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:500}
+
+    .hero{padding:74px 0 56px;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;align-items:center;gap:64px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid rgba(15,168,154,.25);border-radius:999px;background:rgba(255,255,255,.58);font-size:13px;color:#35615B}
+    .eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 5px rgba(15,168,154,.10)}
+    h1{margin:22px 0 20px;font-size:clamp(44px,6.2vw,78px);line-height:1.05;letter-spacing:-.045em;font-weight:600}
+    .hero-em{color:var(--teal);white-space:nowrap}
+    .lead{max-width:660px;margin:0;color:#4E5759;font-size:clamp(17px,2vw,21px);line-height:1.8}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 20px;border-radius:16px;font-weight:500;border:1px solid var(--line);transition:.2s ease}
+    .btn-primary{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 12px 24px rgba(17,22,26,.14)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-secondary{background:rgba(255,255,255,.75)}
+    .btn-secondary:hover{border-color:rgba(15,168,154,.45);color:var(--teal)}
+    .proof{display:flex;flex-wrap:wrap;gap:18px 26px;margin-top:34px;color:#657071;font-size:13px}
+    .proof span{display:flex;align-items:center;gap:8px}
+    .check{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--teal);font-size:12px;font-weight:600}
+
+    .hero-visual{position:relative;min-height:580px}
+    .photo-card{position:absolute;inset:18px 20px 70px 26px;border-radius:36px;overflow:hidden;box-shadow:var(--shadow);transform:rotate(1.8deg);background:#111}
+    .photo-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.02)}
+    .photo-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(7,13,15,.76) 100%)}
+    .photo-copy{position:absolute;left:28px;right:28px;bottom:26px;color:#fff;z-index:2}
+    .photo-copy small{opacity:.72;letter-spacing:.12em}
+    .photo-copy strong{display:block;margin-top:7px;font-size:26px;line-height:1.2;font-weight:600}
+    .float-card{position:absolute;z-index:4;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.8);box-shadow:0 18px 40px rgba(17,22,26,.14);border-radius:20px;padding:15px 17px}
+    .match-card{left:-14px;top:70px;width:198px}
+    .chat-card{right:-10px;bottom:18px;width:218px}
+    .mini-title{font-size:12px;color:#798284;margin-bottom:8px}
+    .match-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .avatar{width:42px;height:42px;border-radius:14px;object-fit:cover}
+    .person{display:flex;align-items:center;gap:10px;min-width:0}
+    .person b{font-size:14px;font-weight:600;display:block}
+    .person em{font-style:normal;color:#7B8587;font-size:11px}
+    .score{color:var(--teal);font-size:20px;font-weight:600}
+    .bubble{font-size:13px;background:var(--soft);padding:10px 12px;border-radius:14px 14px 14px 4px;color:#31524E}
+    .bubble + .bubble{margin-top:8px;margin-left:24px;background:#F0F1F0;color:#424A4C}
+
+    section{padding:76px 0}
+    .section-kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600}
+    .section-title{max-width:780px;margin:10px 0 14px;font-size:clamp(32px,4.6vw,52px);line-height:1.15;letter-spacing:-.035em;font-weight:600}
+    .section-desc{max-width:760px;color:#657071;font-size:17px;margin:0}
+
+    .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+    .problem{padding:24px;border-radius:24px;background:#fff;border:1px solid rgba(17,22,26,.06)}
+    .problem-num{font-size:13px;color:var(--teal);margin-bottom:42px}
+    .problem h3{margin:0 0 9px;font-size:21px;font-weight:600}
+    .problem p{margin:0;color:#717B7D;font-size:14px}
+
+    .features{background:#101619;color:#fff;border-radius:46px;margin:22px auto;width:min(1240px,calc(100% - 24px));overflow:hidden;position:relative}
+    .features:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(32,205,189,.12);filter:blur(40px);top:-250px;right:-160px}
+    .features .wrap{padding-top:78px;padding-bottom:78px;position:relative}
+    .features .section-desc{color:#A9B4B3}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}
+    .feature{min-height:244px;padding:24px;border-radius:24px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);display:flex;flex-direction:column}
+    .feature-icon{width:45px;height:45px;border-radius:15px;display:grid;place-items:center;background:rgba(32,205,189,.13);color:var(--audio);margin-bottom:auto}
+    .feature-icon svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .feature h3{font-size:21px;margin:30px 0 8px;font-weight:500}
+    .feature p{color:#AAB4B4;font-size:14px;margin:0}
+    .tagline{display:inline-flex;margin-top:16px;font-size:12px;color:#67E0D3}
+
+    .journey{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+    .journey-sticky{position:sticky;top:110px}
+    .steps{display:grid;gap:12px}
+    .step{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px;background:#fff;border:1px solid rgba(17,22,26,.06);border-radius:22px}
+    .step-no{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:var(--soft);color:var(--teal);font-weight:600}
+    .step h3{margin:1px 0 5px;font-size:18px;font-weight:600}
+    .step p{margin:0;color:#717A7C;font-size:14px}
+
+    .showcase{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:38px}
+    .showcase-main,.showcase-side{border-radius:30px;overflow:hidden;position:relative;min-height:430px;background:#111}
+    .showcase-main img,.showcase-side img{width:100%;height:100%;object-fit:cover}
+    .showcase-main:after,.showcase-side:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(5,11,13,.78))}
+    .showcase-copy{position:absolute;z-index:2;left:26px;right:26px;bottom:24px;color:#fff}
+    .showcase-copy small{opacity:.68;letter-spacing:.08em}
+    .showcase-copy h3{margin:6px 0 0;font-size:28px;font-weight:500}
+    .side-stack{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .mini-shot{border-radius:24px;overflow:hidden;background:#fff;border:1px solid rgba(17,22,26,.06);min-height:206px}
+    .mini-shot img{width:100%;height:132px;object-fit:cover}
+    .mini-shot div{padding:14px 16px}
+    .mini-shot b{font-size:15px;font-weight:600}
+    .mini-shot p{font-size:12px;color:#7C8586;margin:3px 0 0}
+
+    .value-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+    .value-card{padding:30px;border-radius:28px;background:#fff;border:1px solid rgba(17,22,26,.06)}
+    .value-card.primary{background:var(--soft);border-color:rgba(15,168,154,.14)}
+    .value-card .label{font-size:12px;letter-spacing:.12em;color:var(--teal)}
+    .value-card h3{font-size:27px;margin:10px 0 18px;font-weight:600}
+    .value-list{display:grid;gap:13px}
+    .value-item{display:flex;align-items:flex-start;gap:11px;color:#4D5758}
+    .value-item i{font-style:normal;color:var(--teal);margin-top:1px}
+
+    .cta{padding:60px 0 96px}
+    .cta-box{padding:48px;border-radius:36px;background:linear-gradient(135deg,#0E1719 0%,#102A29 100%);color:#fff;display:grid;grid-template-columns:1fr auto;align-items:center;gap:40px;overflow:hidden;position:relative}
+    .cta-box:before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;right:-110px;top:-150px;background:rgba(32,205,189,.18);filter:blur(12px)}
+    .cta-box h2{position:relative;margin:0 0 10px;font-size:clamp(30px,4vw,46px);line-height:1.16;font-weight:600;letter-spacing:-.03em}
+    .cta-box p{position:relative;color:#B7C4C2;max-width:680px;margin:0}
+    .qr{position:relative;width:156px;min-width:156px;aspect-ratio:1;border-radius:24px;background:#fff;color:#556062;display:grid;place-items:center;text-align:center;padding:20px;font-size:12px;line-height:1.5;box-shadow:0 16px 40px rgba(0,0,0,.2)}
+    .qr:before{content:"";width:56px;height:56px;border:7px solid var(--teal);border-radius:12px;box-shadow:inset 0 0 0 7px #fff;margin-bottom:4px}
+    .domain-pill{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:7px 11px;border-radius:999px;background:rgba(15,168,154,.08);color:#31756d;font-size:12px;border:1px solid rgba(15,168,154,.12)}
+    .domain-pill:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal)}
+    .mobile-cta{display:none}
+    footer{padding:0 0 42px;color:#8A9394;font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:22px}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+
+    @media (max-width:900px){
+      .nav-links a:not(.nav-cta){display:none}
+      .hero{padding-top:48px}
+      .hero-grid{grid-template-columns:1fr;gap:34px}
+      .hero-visual{min-height:520px}
+      .problem-grid,.feature-grid{grid-template-columns:1fr 1fr}
+      .journey{grid-template-columns:1fr;gap:28px}
+      .journey-sticky{position:static}
+      .showcase{grid-template-columns:1fr}
+      .value-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:620px){
+      .wrap{width:min(100% - 28px,1180px)}
+      .nav-inner{height:64px}
+      .brand{font-size:14px}
+      .nav-cta{font-size:12px;padding:8px 12px}
+      h1{font-size:46px}
+      .hero{padding-top:36px}
+      .hero-visual{min-height:430px}
+      .photo-card{inset:12px 4px 62px 10px;border-radius:28px}
+      .match-card{left:-4px;top:46px;width:176px}
+      .chat-card{right:-2px;bottom:8px;width:196px}
+      section{padding:58px 0}
+      .problem-grid,.feature-grid{grid-template-columns:1fr}
+      .features{border-radius:30px;width:calc(100% - 12px)}
+      .features .wrap{padding-top:58px;padding-bottom:58px}
+      .feature{min-height:212px}
+      .showcase-main,.showcase-side{min-height:340px}
+      .side-stack{grid-template-columns:1fr 1fr;gap:10px}
+      .mini-shot{min-height:184px}
+      .mini-shot img{height:112px}
+      .cta-box{padding:32px 24px;grid-template-columns:1fr}
+      .qr{width:132px;min-width:132px}
+      .footer-inner{flex-direction:column}
+      body{padding-bottom:76px}
+      .mobile-cta{display:flex;position:fixed;z-index:30;left:12px;right:12px;bottom:12px;min-height:54px;align-items:center;justify-content:center;border-radius:17px;background:var(--ink);color:#fff;box-shadow:0 14px 36px rgba(17,22,26,.24);font-weight:600}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><span>对拍 Groove</span></a>
+      <div class="nav-links">
+        <a href="#features">核心功能</a>
+        <a href="#journey">使用路径</a>
+        <a href="#value">产品价值</a>
+        <a class="nav-cta" href="#experience">体验对拍</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span>校园音乐社交 · 乐队组织 · 社团协同</div>
+          <h1>让想一起玩音乐的人，<span class="hero-em">更快找到彼此。</span></h1>
+          <p class="lead">对拍 Groove 面向校园音乐人与音乐社团，把找乐手、找乐队、音乐主页、聊天、乐队管理、活动公告、排练与设备协同放进同一条体验链路里。</p>
+          <div class="domain-pill">duipai.top · 对拍官方产品页</div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#features">看看它能做什么 →</a>
+            <a class="btn btn-secondary" href="#value">面向社团的价值</a>
+          </div>
+          <div class="proof">
+            <span><i class="check">✓</i>微信小程序原生体验</span>
+            <span><i class="check">✓</i>围绕真实校园乐队场景</span>
+            <span><i class="check">✓</i>从认识到成团形成闭环</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="校园乐队演奏场景">
+          <div class="photo-card">
+            <img src="assets/hero.jpg" alt="乐手排练现场" />
+            <div class="photo-copy"><small>GROOVE MOMENT</small><strong>不是刷到彼此，<br>是下一次真的一起排练。</strong></div>
+          </div>
+          <div class="float-card match-card">
+            <div class="mini-title">今日对拍</div>
+            <div class="match-row">
+              <div class="person"><img class="avatar" src="assets/band1.jpg" alt="乐手头像"><span><b>吉他 · Indie</b><em>正在找乐队</em></span></div>
+              <span class="score">92%</span>
+            </div>
+          </div>
+          <div class="float-card chat-card">
+            <div class="mini-title">从匹配到沟通</div>
+            <div class="bubble">周六下午有空一起试音吗？</div>
+            <div class="bubble">可以，先听下你的作品 🎸</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="reveal">
+      <div class="wrap">
+        <div class="section-kicker">Why Groove</div>
+        <h2 class="section-title">校园里不缺喜欢音乐的人，缺的是让他们真正连接起来的方式。</h2>
+        <p class="section-desc">群聊擅长通知，却不擅长匹配；朋友圈能展示作品，却很难回答“谁正好缺一个贝斯手”。对拍 Groove 把这些原本分散的动作重新组织成一条清晰路径。</p>
+        <div class="problem-grid">
+          <article class="problem"><div class="problem-num">01 / MATCH</div><h3>找人靠碰运气</h3><p>乐器、风格、空闲时间和组队意愿散落在聊天记录里，很难快速判断是否合适。</p></article>
+          <article class="problem"><div class="problem-num">02 / ORGANIZE</div><h3>成团之后又很分散</h3><p>成员、作品、招募、排练和沟通分别存在不同地方，乐队缺少持续经营的数字空间。</p></article>
+          <article class="problem"><div class="problem-num">03 / OPERATE</div><h3>社团运营重复劳动</h3><p>活动报名、公告、排练室和设备借用都需要单独统计，信息也很容易被聊天消息淹没。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="features reveal" id="features">
+      <div class="wrap">
+        <div class="section-kicker">Core Features</div>
+        <h2 class="section-title">核心不是“功能多”，而是每一步都接得上。</h2>
+        <p class="section-desc">从第一次看到一个合适的乐手，到建立联系、加入乐队、参与活动和持续排练，核心能力围绕真实音乐社交关系组织。</p>
+        <div class="feature-grid">
+          <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="13" r="4.2"/><circle cx="16" cy="13" r="4.2"/><path d="M8 8.8 C8 8.8 8 8.8 8 8.8"/><path d="M8 8.8 C9.2 7 14.8 7 16 8.8"/><path d="M8 17.2 C9.2 19 14.8 19 16 17.2"/><path d="M12 10.4v5.2"/></svg></div><h3>对拍 · 找乐手 / 找乐队</h3><p>通过职位、曲风、资料与匹配信息快速认识同频的人，也可以直接查看正在招募的乐队。</p><span class="tagline">先看是否合拍，再决定要不要聊</span></article>
+          <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5V6.2l9-2.2v11.3"/><circle cx="6.4" cy="17.5" r="2.6"/><circle cx="15.4" cy="15.3" r="2.6"/></svg></div><h3>个人音乐主页</h3><p>用封面、乐器职位、音乐简介、照片、视频、音频和演出履历，让“我会什么”比一句自我介绍更有说服力。</p><span class="tagline">让作品替你完成第一轮自我介绍</span></article>
+          <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v10.5H10l-3.5 3.5V16.5H4z"/><path d="M8.5 11h7"/></svg></div><h3>私聊与群聊</h3><p>支持私聊、乐队群和活动群，并承接资料查看、语音沟通、入队邀请与请求，让匹配不只停留在卡片上。</p><span class="tagline">从认识到约一次排练</span></article>
+          <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="4.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><path d="M17 15.5v5M14.5 18h5"/></svg></div><h3>乐队主页与组织</h3><p>展示成员、招募缺位、乐队作品与演出信息；队长可以围绕自己的乐队处理成员和后续协作。</p><span class="tagline">一支乐队有自己的长期空间</span></article>
+          <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16"/><path d="M8.5 3v3M15.5 3v3"/><path d="M8 13.5h3M13 13.5h3"/></svg></div><h3>活动与公告</h3><p>活动报名、详情、名单与活动群聊集中处理；公告支持文字、图片与视频，让重要社团信息不再完全依赖群消息。</p><span class="tagline">让参与活动这件事更明确</span></article>
+          <article class="feature"><div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h3.2M9.6 12h3.2M15.2 12h4.8"/><rect x="7.2" y="8" width="3.6" height="8" rx="1.4"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1.4"/></svg></div><h3>排练与设备协同</h3><p>围绕真实社团资源管理排练时段和设备借用，让队长能够在同一平台完成从组队到排练的后续动作。</p><span class="tagline">社交最终落到真实音乐活动</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="journey">
+      <div class="wrap journey">
+        <div class="journey-sticky">
+          <div class="section-kicker">User Journey</div>
+          <h2 class="section-title">一个乐手真正会走的路径。</h2>
+          <p class="section-desc">产品价值不在某一个页面，而在于用户不需要离开系统，就能完成从“我想找人”到“我们真的开始一起玩”的全过程。</p>
+        </div>
+        <div class="steps">
+          <article class="step"><div class="step-no">01</div><div><h3>建立音乐身份</h3><p>完善乐器、曲风、个人资料与作品，让别人能快速判断你的方向。</p></div></article>
+          <article class="step"><div class="step-no">02</div><div><h3>对拍发现同频乐手 / 招募乐队</h3><p>不是只看头像，而是结合音乐信息、当前状态和完整主页做决定。</p></div></article>
+          <article class="step"><div class="step-no">03</div><div><h3>私聊、听作品、确认想法</h3><p>从“看起来合适”进入真实沟通，再决定是否进一步组队。</p></div></article>
+          <article class="step"><div class="step-no">04</div><div><h3>加入或创建乐队</h3><p>成员关系、招募信息和乐队主页进入稳定组织状态，而不是继续散落在群聊里。</p></div></article>
+          <article class="step"><div class="step-no">05</div><div><h3>活动、排练、作品持续沉淀</h3><p>乐队不只是“建了一个群”，而是逐渐留下成员、内容和真实活动记录。</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="wrap">
+        <div class="section-kicker">Music First</div>
+        <h2 class="section-title">让音乐内容成为产品气质，而不是后台表格的包装。</h2>
+        <p class="section-desc">对拍 Groove 的视觉系统以 Paper、Ink 和 Groove Teal 为基础，把照片、作品和真实排练现场放在更高视觉权重上。</p>
+        <div class="showcase">
+          <div class="showcase-main"><img src="assets/band2.jpg" alt="乐队内容"><div class="showcase-copy"><small>BAND PROFILE</small><h3>认识一支乐队，从他们正在做的音乐开始。</h3></div></div>
+          <div class="side-stack">
+            <div class="mini-shot"><img src="assets/sound1.jpg" alt="音乐作品"><div><b>最近的声音</b><p>音频 / Demo / 演奏片段</p></div></div>
+            <div class="mini-shot"><img src="assets/sound2.jpg" alt="音乐内容"><div><b>演出与排练</b><p>照片 / 视频 / 活动记录</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="value">
+      <div class="wrap">
+        <div class="section-kicker">Product Value</div>
+        <h2 class="section-title">既服务乐手，也让社团运营真正更轻。</h2>
+        <p class="section-desc">对学生，它是音乐社交和组队工具；对社团管理者，它把成员关系、活动和公共资源逐步沉淀为可管理的体系。</p>
+        <div class="value-grid">
+          <article class="value-card primary">
+            <div class="label">FOR MUSICIANS</div><h3>对乐手：减少“找不到人”的摩擦</h3>
+            <div class="value-list">
+              <div class="value-item"><i>●</i><span>更快发现合适的乐手和正在招募的乐队</span></div>
+              <div class="value-item"><i>●</i><span>用作品和音乐档案建立更真实的第一印象</span></div>
+              <div class="value-item"><i>●</i><span>从私聊到入队、群聊和排练形成连续体验</span></div>
+              <div class="value-item"><i>●</i><span>个人与乐队的音乐经历能够持续沉淀</span></div>
+            </div>
+          </article>
+          <article class="value-card">
+            <div class="label">FOR CLUB OPERATIONS</div><h3>对社团：减少重复通知与人工统计</h3>
+            <div class="value-list">
+              <div class="value-item"><i>●</i><span>活动、公告和成员参与有统一入口</span></div>
+              <div class="value-item"><i>●</i><span>排练室与设备借用围绕真实身份管理</span></div>
+              <div class="value-item"><i>●</i><span>乐队、成员与内容形成长期可维护的组织资产</span></div>
+              <div class="value-item"><i>●</i><span>为后续社团数字化运营留下清晰的数据基础</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta reveal" id="experience">
+      <div class="wrap">
+        <div class="cta-box">
+          <div><h2>让下一支校园乐队，<br>从一次“对拍”开始。</h2><p>对拍 Groove · 校园音乐人的组队、沟通与社团协同小程序。正式体验码上线后，这里将直接成为从网页进入微信小程序的入口。</p><div class="domain-pill" style="color:#8de8dd;border-color:rgba(141,232,221,.18);background:rgba(141,232,221,.08)">官方网站 · duipai.top</div></div>
+          <div class="qr">微信小程序<br>体验码待替换</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><span>© 2026 对拍 Groove · duipai.top</span><span>校园音乐社交 · 乐队组织 · 社团运营</span></div></footer>
+
+  <a class="mobile-cta" href="#experience">体验对拍 Groove →</a>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in') })
+    }, { threshold: .08 })
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
+  </script>
+</body>
+</html>
