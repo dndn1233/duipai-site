@@ -401,25 +401,38 @@
   <a class="mobile-cta" href="#experience">体验对拍 Groove →</a>
 
   <script>
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in') })
-    }, { threshold: .08 })
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
-
-    // 访客计数器：只统计真实浏览器（爬虫 UA 在服务端已过滤）
+    // 访客计数器：只统计真实浏览器（爬虫 UA 在服务端已过滤）—— 先执行,避免后面脚本异常打断
     (function(){
-      const numEl = document.getElementById('guest-num');
-      const thanksEl = document.getElementById('guest-thanks');
-      const wrap = document.getElementById('guest');
-      if(!numEl) return;
-      fetch('counter.php', { credentials:'omit', cache:'no-store' })
-        .then(r => r.json())
-        .then(d => {
-          numEl.textContent = d.count;
-          if (d.thanks && thanksEl) thanksEl.textContent = d.thanks;
-        })
-        .catch(() => { if(wrap) wrap.style.display = 'none'; });
+      try {
+        var numEl = document.getElementById('guest-num');
+        var thanksEl = document.getElementById('guest-thanks');
+        var wrap = document.getElementById('guest');
+        if(!numEl || !window.fetch) { if(wrap) wrap.style.display='none'; return; }
+        fetch('counter.php', { credentials:'omit', cache:'no-store' })
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            if (d && typeof d.count !== 'undefined') numEl.textContent = d.count;
+            if (d && d.thanks && thanksEl) thanksEl.textContent = d.thanks;
+          })
+          .catch(function(){ if(wrap) wrap.style.display = 'none'; });
+      } catch(err) {
+        var w = document.getElementById('guest');
+        if (w) w.style.display = 'none';
+      }
     })();
+
+    // 滚动入场动画 —— 用 Array.from 兼容老内核(微信 X5 等)
+    try {
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+          for (var i = 0; i < entries.length; i++) {
+            if (entries[i].isIntersecting) entries[i].target.classList.add('in');
+          }
+        }, { threshold: .08 });
+        var nodes = document.querySelectorAll('.reveal');
+        for (var j = 0; j < nodes.length; j++) obs.observe(nodes[j]);
+      }
+    } catch(e) {}
   </script>
 </body>
 </html>
